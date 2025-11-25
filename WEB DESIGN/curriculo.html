@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currículo de Felipe Tirone C. M. Junior</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Estilos globais */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0fff0; /* Verde-claro muito suave */
+            color: #4a4a4a;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Animação de fundo (motion) */
+        .leaf-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .leaf {
+            position: absolute;
+            background-color: #90ee90; /* Verde claro */
+            opacity: 0.7;
+            border-radius: 50%;
+            animation-duration: 20s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            box-shadow: 0 0 10px rgba(144, 238, 144, 0.5);
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-100px) rotate(0deg);
+            }
+            to {
+                transform: translateY(120vh) rotate(360deg);
+            }
+        }
+
+        /* Container principal do currículo */
+        .container {
+            width: 90%;
+            max-width: 950px;
+            background: rgba(255, 255, 255, 0.8); /* Fundo branco semi-transparente */
+            backdrop-filter: blur(5px);
+            padding: 50px 70px;
+            margin: 50px auto;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos do cabeçalho */
+        .profile-header {
+            text-align: center;
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            color: #556b2f; /* Verde oliva */
+            margin: 0;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 1.4em;
+            color: #8fbc8f; /* Verde-escuro suave */
+            font-weight: 400;
+            margin: 10px 0 0;
+        }
+
+        /* Estilos para as seções */
+        section {
+            margin-bottom: 50px;
+            padding-top: 20px;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            color: #556b2f;
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        h3::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: #8fbc8f;
+            margin-top: 5px;
+        }
+
+        p {
+            margin: 0;
+            line-height: 1.8;
+            color: #696969;
+        }
+
+        .job-item {
+            margin-bottom: 25px;
+        }
+        
+        .job-item h4 {
+            font-size: 1.2em;
+            color: #4a4a4a;
+            margin: 0;
+        }
+        .job-item p {
+            font-style: italic;
+            color: #808080;
+            margin: 5px 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+
+        li {
+            padding: 5px 0;
+            color: #696969;
+        }
+        li::before {
+            content: "•";
+            color: #556b2f;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        /* Botões e links sociais */
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-btn {
+            color: #808080;
+            font-size: 1.8em;
+            transition: color 0.3s ease;
+        }
+        .social-btn:hover {
+            color: #556b2f;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 25px;
+            background-color: #8fbc8f; /* Verde-claro */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .contact-btn:hover {
+            background-color: #6b8e23; /* Verde oliva */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        .contact-btn i {
+            margin-right: 10px;
+        }
+
+        /* Pop-up de contato */
+        .contact-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border: 2px solid #8fbc8f;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .contact-popup-content {
+            font-size: 1.2em;
+            color: #4a4a4a;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .contact-popup button {
+            background-color: #8fbc8f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contact-popup button:hover {
+            background-color: #6b8e23;
+        }
+
+        /* Overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: auto; /* Empurra o rodapé para baixo */
+            padding-top: 20px;
+            padding-bottom: 20px;
+            color: #999;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="leaf-container"></div>
+
+    <div class="overlay" onclick="closePopup()"></div>
+    
+    <div id="email-popup" class="contact-popup">
+        <div class="contact-popup-content">
+            E-mail: felipetironecoimbra@gmail.com
+        </div>
+        <button onclick="closePopup()">Fechar</button>
+    </div>
+
+    <div id="phone-popup" class="contact-popup">
+        <div class="contact-popup-content">
+            Telefone: (65) 99264-4682
+        </div>
+        <button onclick="closePopup()">Fechar</button>
+    </div>
+
+    <div class="container">
+
+        <header class="profile-header">
+            <h1>Felipe Tirone Coimbra Meireles Junior</h1>
+            <h2>22 anos | Estudante de Ciências da Computação</h2>
+            
+            <div class="social-buttons">
+                <a href="https://linkedin.com/in/seuperfil" target="_blank" class="social-btn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/seuperfil" target="_blank" class="social-btn"><i class="fab fa-github"></i></a>
+                <a href="https://wa.me/5565992644682" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            
+            <a class="contact-btn" onclick="openPopup('email')">
+                <i class="fas fa-envelope"></i> E-mail
+            </a>
+            <a class="contact-btn" onclick="openPopup('phone')">
+                <i class="fas fa-phone-alt"></i> Telefone
+            </a>
+        </header>
+
+        <section class="summary">
+            <h3>Resumo Profissional</h3>
+            <p>Atualmente cursando Ciências da Computação, com experiência em diversas áreas, desde o atendimento ao cliente até o suporte administrativo. Possuo conhecimento em informática, proficiência em inglês (nível intermediário a avançado) e forte habilidade de aprendizado e adaptação. Busco aplicar minhas competências técnicas e interpessoais para contribuir de forma significativa em novos desafios.</p>
+        </section>
+
+        <section class="experience">
+            <h3>Experiência Profissional</h3>
+            
+            <div class="job-item">
+                <h4>Auxiliar Administrativo</h4>
+                <p><strong>PGE-MT</strong> | Atualmente</p>
+                <ul>
+                    <li>Realização de tarefas administrativas de rotina e suporte à equipe.</li>
+                    <li>Organização e gestão de documentos físicos e digitais.</li>
+                    <li>Auxílio na comunicação interna e externa da equipe.</li>
+                </ul>
+            </div>
+            
+            <div class="job-item">
+                <h4>Telemarketing e Pesquisa Política</h4>
+                <p><strong>Empresa de Pesquisa de Mercado</strong> | 2 anos</p>
+                <ul>
+                    <li>Realização de ligações ativas e passivas para pesquisa de mercado e campanhas políticas.</li>
+                    <li>Desenvolvimento de habilidades de comunicação e persuasão.</li>
+                    <li>Coleta e registro de dados de forma organizada e precisa.</li>
+                </ul>
+            </div>
+            
+            <div class="job-item">
+                <h4>Atendente / Serviços Gerais</h4>
+                <p><strong>McDonald's</strong> | 8 meses</p>
+                <ul>
+                    <li>Atendimento ao cliente, recebendo e processando pedidos com agilidade.</li>
+                    <li>Execução de tarefas de limpeza e organização para manter o ambiente agradável.</li>
+                    <li>Trabalho em equipe e resolução de problemas em um ambiente de ritmo acelerado.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="skills">
+            <h3>Habilidades</h3>
+            <ul>
+                <li><strong>Idiomas:</strong> Inglês (Intermediário a Avançado)</li>
+                <li><strong>Informática:</strong> Pacote Office (Word, Excel, PowerPoint), Sistemas Operacionais, Noções de Redes e Internet.</li>
+                <li><strong>Competências Pessoais:</strong> Comunicação, Trabalho em Equipe, Organização e Proatividade.</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 Felipe Tirone C. M. Junior. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Funções para pop-up
+        function openPopup(contactType) {
+            const popup = document.getElementById(contactType + '-popup');
+            const overlay = document.querySelector('.overlay');
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+
+        function closePopup() {
+            const popups = document.querySelectorAll('.contact-popup');
+            const overlay = document.querySelector('.overlay');
+            popups.forEach(popup => popup.style.display = 'none');
+            overlay.style.display = 'none';
+        }
+
+        // Animação de fundo (motion)
+        const leafContainer = document.querySelector('.leaf-container');
+
+        function createLeaf() {
+            const leaf = document.createElement('div');
+            leaf.classList.add('leaf');
+            leaf.style.left = Math.random() * 100 + 'vw';
+            leaf.style.width = Math.random() * 15 + 5 + 'px';
+            leaf.style.height = leaf.style.width;
+            leaf.style.animationDuration = Math.random() * 10 + 15 + 's';
+            leaf.style.animationDelay = Math.random() * 5 + 's';
+            leafContainer.appendChild(leaf);
+
+            setTimeout(() => {
+                leaf.remove();
+            }, parseFloat(leaf.style.animationDuration) * 1000);
+        }
+
+        setInterval(createLeaf, 500);
+    </script>
+</body>
+</html>
